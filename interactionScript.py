@@ -10,6 +10,10 @@ import network
 import ustruct
 import secret
 
+netwerk = secret.network
+password = secret.password
+url = secret.url
+
 # Accelerometer and Gyroscope
 accel_gyro = I2C(1, scl=Pin(7), sda=Pin(6), freq = 400000)
 sensor_address = 0x68
@@ -195,7 +199,7 @@ def connect_with_wlan():
     while scan == []:
         scan = wlan.scan()
     debugPrint(scan)
-    wlan.connect(secret.network, secret.password)
+    wlan.connect(network, password)
 
     while not wlan.isconnected():
         pass
@@ -206,7 +210,7 @@ def send_prompt(prompt):
     prompt = from_QWERTZ_to_QWERTY(prompt)
     try:
         debugPrint("Sending data to server")
-        response = post(secret.url, data=prompt, timeout=5)
+        response = post(url, data=prompt, timeout=5)
 
         if response.status_code == 200:
             print("Response from server:", response.text)

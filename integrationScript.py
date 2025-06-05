@@ -2,8 +2,10 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import pyautogui
 import secret
 
-width, height = pyautogui.size()
 ip = secret.ip
+port = secret.port
+
+width, height = pyautogui.size()
 
 class RequestHandler(BaseHTTPRequestHandler):
     storage = []
@@ -39,7 +41,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         pyautogui.press('enter')
 
 def start_server():
-    serverAddress = (ip, 8080)
+    serverAddress = (ip, port)
     server = HTTPServer(serverAddress, RequestHandler)
     server.serve_forever()
 
